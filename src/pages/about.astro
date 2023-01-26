@@ -1,0 +1,31 @@
+---
+import Link from '../components/Link.astro'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="About">
+	<meta slot="meta-description" name="description" content="This page is About." />
+
+	<main>
+		<h1>About</h1>
+		<Link href="/" color="#00faaa">Home</Link>
+	</main>
+</Layout>
+
+<style lang="scss">
+	main {
+		width: 100%;
+		height: 100%;
+		background-color: #303;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	h1 {
+		color: #aafaff;
+		font-weight: 100;
+		font-size: 5rem;
+	}
+</style>

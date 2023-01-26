@@ -1,0 +1,11 @@
+@use 'sass:string';
+
+@mixin primitive($properties: all, $duration: 0.3s, $ease: ease) {
+	transition-property: string.unquote($properties);
+	transition-duration: $duration;
+	transition-timing-function: $ease;
+}
+
+@mixin hover($properties: all) {
+	@include primitive($properties, 0.3s, ease);
+}

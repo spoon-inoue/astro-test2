@@ -1,0 +1,15 @@
+html {
+	overflow: overlay;
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba($color: #555, $alpha: 0.4);
+}

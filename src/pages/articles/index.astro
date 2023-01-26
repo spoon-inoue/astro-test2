@@ -1,0 +1,116 @@
+---
+import Link from '../../components/Link.astro'
+import Layout from '../../layouts/Layout.astro'
+import { fetchArticles } from '../../scripts/fetcher'
+
+const datas = await fetchArticles()
+---
+
+<Layout title="Articles">
+	<main>
+		<ul class="article-list">
+			{
+				datas.map((data) => (
+					<li>
+						<a href={`/articles/${data.id}`}>{data.title}</a>
+					</li>
+				))
+			}
+		</ul>
+		<Link href="/" class="link" color="#1e1e1e">Home</Link>
+	</main>
+</Layout>
+
+<style lang="scss">
+	@use '../../styles/mixins/medias.scss' as *;
+	@use '../../styles/mixins/fonts.scss';
+	@use '../../styles/mixins/transitions.scss';
+
+	main {
+		position: relative;
+		width: 100%;
+		min-height: 100%;
+		background-color: #efefef;
+		padding-block: 5rem;
+	}
+
+	h1 {
+		color: #1e1e1e;
+		font-weight: 100;
+		font-size: 5rem;
+	}
+
+	.link {
+		position: fixed;
+		bottom: 1rem;
+		left: 1.5rem;
+	}
+
+	.article-list {
+		counter-reset: count;
+		width: fit-content;
+		margin-inline: auto;
+
+		& li {
+			--line: 100%;
+
+			position: relative;
+			font-size: 2rem;
+			font-weight: 100;
+
+			padding-bottom: 0.5rem;
+			margin-bottom: 1rem;
+			background: linear-gradient(#0003, #0003) bottom left / 100% 1px no-repeat;
+
+			&::before {
+				counter-increment: count;
+				content: counter(count, decimal-leading-zero) '.';
+				@include fonts.RedHatMono;
+				font-size: 1.5rem;
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 0%;
+				height: 1px;
+				background-color: #000;
+				@include transitions.primitive($properties: width, $duration: 0.5s);
+			}
+
+			@include hoverable {
+				color: #0005;
+				@include transitions.primitive($properties: color, $duration: 0.5s);
+
+				&:hover {
+					color: #000;
+					&::after {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+
+	a {
+		color: inherit;
+	}
+</style>
+
+<script>
+	import gsap from 'gsap'
+	console.log('Articles')
+
+	document.addEventListener('swup:transitionEnd', () => {
+		const items = document.querySelectorAll('.article-list li')
+		if (0 < items.length) {
+			gsap.fromTo(
+				items,
+				{ opacity: 0, yPercent: 50 },
+				{ opacity: 1, yPercent: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1 }
+			)
+		}
+	})
+</script>

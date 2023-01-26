@@ -1,0 +1,50 @@
+@use 'ress';
+@use './customScrollbar.scss';
+
+@font-face {
+	font-family: 'RedHatMono';
+	src: url('/fonts/RedHatMono-VariableFont_wght.ttf') format('truetype');
+	font-style: normal;
+	font-display: swap;
+}
+
+:root {
+	--accent: 124, 58, 237;
+	--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
+}
+
+html {
+	font-family: system-ui, sans-serif;
+	background-color: #f6f6f6;
+	width: 100%;
+	height: 100%;
+}
+
+code {
+	font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+		monospace;
+}
+
+body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: inherit;
+	font-weight: inherit;
+}

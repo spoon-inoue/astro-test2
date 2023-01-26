@@ -1,0 +1,86 @@
+---
+import Link from '../../components/Link.astro'
+import Layout from '../../layouts/Layout.astro'
+import { fetchArticle, fetchArticles } from '../../scripts/fetcher'
+
+export async function getStaticPaths() {
+	const datas = await fetchArticles()
+	const paths = datas.map((data) => ({ params: { slug: data.id } }))
+	return paths
+}
+
+const { slug } = Astro.params
+const data = await fetchArticle(Number(slug))
+---
+
+<Layout title="Article">
+	<main>
+		<div class="paper">
+			<h1>{data.title}</h1>
+			<p>{data.body}</p>
+		</div>
+		<Link href="/articles" class="link" color="#1e1e1e">Articles</Link>
+	</main>
+</Layout>
+
+<style lang="scss">
+	main {
+		position: relative;
+		width: 100%;
+		min-height: 100%;
+		background-color: #efefef;
+		display: grid;
+		place-items: center;
+	}
+
+	.link {
+		position: fixed;
+		bottom: 1rem;
+		left: 1.5rem;
+	}
+
+	.paper {
+		width: 40rem;
+		min-height: 50rem;
+		padding: 3rem;
+		border-radius: 10px;
+		background-color: #fff;
+		box-shadow: 0 0 30px #0005;
+
+		& h1 {
+			font-size: 2rem;
+			line-height: 1.2;
+			margin-bottom: 2rem;
+		}
+
+		& p {
+			position: relative;
+			font-size: 1.5rem;
+			text-align: justify;
+			padding-top: 1rem;
+			color: #777;
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				background-color: #aaa;
+			}
+		}
+	}
+</style>
+
+<script>
+	import gsap from 'gsap'
+	console.log('Article')
+
+	document.addEventListener('swup:transitionEnd', () => {
+		const paper = document.querySelector('.paper')
+		if (paper) {
+			gsap.fromTo(paper, { opacity: 0, yPercent: 20 }, { opacity: 1, yPercent: 0, duration: 1, ease: 'power2.out' })
+		}
+	})
+</script>

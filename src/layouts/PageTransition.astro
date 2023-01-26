@@ -1,0 +1,55 @@
+<div id="swup" class="container">
+	<div class="transition-cover"></div>
+	<slot />
+</div>
+
+<style lang="scss">
+	@use '../styles/mixins/transitions.scss';
+
+	.container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	.transition-cover {
+		position: fixed;
+		z-index: 10;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #fb0;
+		transform-origin: center right;
+		scale: 0 1;
+		transition: scale 0.5s ease;
+	}
+
+	html.is-animating .transition-cover {
+		// クリックされると追加される。コンテンツが置き換わった後に削除される。
+		transform-origin: center left;
+		scale: 1 1;
+	}
+	html.is-leaving .transition-cover {
+		// クリックされると追加される。コンテンツが置き換わる直前に削除される。
+		// scale: 1 1;
+	}
+	html.is-rendering .transition-cover {
+		// コンテンツが置き換わる直前に追加される。移行プロセスが終了した後に削除される。
+		scale: 1 1;
+	}
+</style>
+
+<script>
+	import Swup from 'swup'
+	import SwupHeadPlugin from '@swup/head-plugin'
+	import SwupPreloadPlugin from '@swup/preload-plugin'
+	import SwupScriptsPlugin from '@swup/scripts-plugin'
+
+	console.log('PageTransition')
+
+	new Swup({
+		plugins: [new SwupHeadPlugin(), new SwupPreloadPlugin(), new SwupScriptsPlugin()],
+		animateHistoryBrowsing: true, // history back/forward でアニメーションを有効にする
+	})
+</script>
