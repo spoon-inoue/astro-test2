@@ -3,13 +3,14 @@ import type { HTMLAttributes } from 'astro/types'
 
 interface Props extends HTMLAttributes<'a'> {
 	color?: string
+	prefetch?: boolean
 }
 // type Props = HTMLAttributes<'a'>;
 
-const { color = '#fff', ...props } = Astro.props
+const { color = '#fff', prefetch = true, ...props } = Astro.props
 ---
 
-<a {...props}>
+<a rel={prefetch ? 'prefetch' : undefined} {...props}>
 	<slot />
 </a>
 
