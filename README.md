@@ -31,5 +31,10 @@ https://astro-test2-xi.vercel.app/
         <td>https://swup.js.org/</td>
         <td>https://user-images.githubusercontent.com/105195761/215382651-5ffcd594-e8ac-4626-9913-7514021a7606.jpg</td>
     </tr>
+    <tr>
+        <td>Three.js</td>
+        <td>https://threejs.org/</td>
+        <td>https://user-images.githubusercontent.com/105195761/215391663-baf010c0-68d9-403a-92f8-4abdb355e51e.jpg</td>
+    </tr>
 </table>
 
