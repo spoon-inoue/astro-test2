@@ -1,5 +1,7 @@
 # Astro test
 
+https://astro-test2-xi.vercel.app/
+
 - SSG
 - Dynamic Routing
 - Page Transition using [Swup](https://swup.js.org/)
