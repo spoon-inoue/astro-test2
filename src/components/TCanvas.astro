@@ -16,14 +16,17 @@
 
 	let canvas: TCanvas | null = null
 
+	// このスクリプトに入ってきた時点で、contentReplacedにcanvasの生成処理が登録されていないので、初回はここで生成する
 	const container = document.querySelector<HTMLElement>('.three-container')
 	if (container) {
 		canvas = new TCanvas(container)
 	}
 
 	document.addEventListener('swup:contentReplaced', () => {
+		// コンテンツが置き換わった時に、.three-containerが存在すればcanvasを生成する。
+		// singletonクラスの webgl instance は保たれている。
 		const container = document.querySelector<HTMLElement>('.three-container')
-		if (container) {
+		if (!canvas && container) {
 			canvas = new TCanvas(container)
 		} else {
 			canvas?.dispose()
