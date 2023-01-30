@@ -7,7 +7,6 @@
 # OctoKit test
 
 <table>
-    <caption>Alien football stars</caption>
     <tr>
         <th scope="col">name</th>
         <th scope="col">url</th>
