@@ -3,6 +3,8 @@
 - SSG
 - Dynamic Routing
 - Page Transition using [Swup](https://swup.js.org/)
+- [octokit](https://github.com/octokit/octokit.js)
+- [jsdom: html parcer on server](https://www.npmjs.com/package/jsdom)
 
 # OctoKit test
 
