@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { Octokit } from 'octokit'
+import { JSDOM } from 'jsdom'
+
+const octokit = new Octokit()
+const { data } = await octokit.rest.repos.getContent({
+	owner: 'spoon-inoue',
+	repo: 'astro-test2',
+	path: 'README.md',
+})
+const decodedData = Buffer.from((data as any).content, (data as any).encoding).toString()
+// console.log(decodedData)
+
+const dom = new JSDOM(decodedData)
+const tableRows = Array.from(
+	dom.window.document.querySelectorAll('table[id="octokit-table"] tr:not(#header)')
+) as HTMLTableRowElement[]
+
+const params = tableRows.map((rows) => {
+	const datas = Array.from(rows.querySelectorAll('td')) as HTMLTableCellElement[]
+	return { name: datas[0].innerHTML, url: datas[1].innerHTML, image: datas[2].innerHTML }
+})
+// console.log(params)
+---
+
+<Layout title="ReadMe">
+	<main>
+		<ul>
+			{
+				params.map((p) => (
+					<li>
+						<a href={p.url} target="_blank" rel="noopener noreferrer">
+							<img src={p.image} alt="" />
+						</a>
+						<h2>{p.name}</h2>
+					</li>
+				))
+			}
+		</ul>
+	</main>
+</Layout>
+
+<style lang="scss">
+	@use '../styles/mixins/medias.scss' as *;
+	@use '../styles/mixins/transitions.scss';
+
+	main {
+		width: 100%;
+		min-height: 100%;
+		background-color: #efefef;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	ul {
+		& li:not(:last-child) {
+			margin-bottom: 1rem;
+		}
+	}
+
+	li {
+		position: relative;
+		width: 30rem;
+		aspect-ratio: 16 / 9;
+		line-height: 0;
+		overflow: hidden;
+
+		& > a {
+			width: 100%;
+			height: 100%;
+			& > img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				@include hoverable {
+					@include transitions.hover(scale);
+					&:hover {
+						scale: 1.1;
+					}
+				}
+			}
+		}
+
+		& > h2 {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			background-color: #0005;
+			backdrop-filter: blur(3px);
+			color: #fff;
+			font-size: 2rem;
+			line-height: 1;
+			padding: 1rem 2rem;
+			pointer-events: none;
+		}
+	}
+</style>
