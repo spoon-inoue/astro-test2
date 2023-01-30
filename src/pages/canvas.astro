@@ -1,0 +1,24 @@
+---
+import TCanvas from '../components/TCanvas.astro'
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="canvas">
+	<main>
+		<TCanvas />
+	</main>
+</Layout>
+
+<style lang="scss">
+	.main {
+		width: 100%;
+		min-height: 100%;
+	}
+</style>
+
+<script>
+	document.addEventListener('swup:contentReplaced', () => {
+		const container = 'aaa'
+		console.log(container)
+	})
+</script>

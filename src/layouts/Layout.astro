@@ -18,6 +18,7 @@ const { title } = Astro.props
 		<meta name="generator" content={Astro.generator} />
 		<slot name="meta-description" />
 		<title>{title}</title>
+		<slot name="script" />
 	</head>
 	<body>
 		<PageTransition>
@@ -25,3 +26,10 @@ const { title } = Astro.props
 		</PageTransition>
 	</body>
 </html>
+
+<!-- <script is:inline>
+	console.log('layout: inline')
+</script> -->
+
+<!-- <script src="./layout.ts" defer type="module"></script> -->
+<!-- <script src="./layout.ts"></script> -->
