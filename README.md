@@ -6,8 +6,8 @@
 
 # OctoKit test
 
-<table>
-    <tr>
+<table id='octokit-table'>
+    <tr id='header'>
         <th scope="col">name</th>
         <th scope="col">url</th>
         <th scope="col">image</th>
